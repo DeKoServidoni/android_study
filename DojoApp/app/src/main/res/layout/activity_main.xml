@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dip"
+        android:layout_marginTop="40dip"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="@string/app_name"/>
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="@string/username"/>
+
+    <EditText android:id="@+id/main_user_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dip"
+              android:layout_marginEnd="10dip"
+              android:inputType="text"
+              android:gravity="center"/>
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="30dip"
+              android:gravity="center"
+              android:textSize="16sp"
+              android:text="@string/password"/>
+
+    <EditText android:id="@+id/main_password_input"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="10dip"
+              android:layout_marginEnd="10dip"
+              android:inputType="textPassword"
+              android:gravity="center"/>
+
+    <Button
+        android:id="@+id/main_button_login"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_margin="30dip"
+        android:text="@string/login"/>
+
+</LinearLayout>
