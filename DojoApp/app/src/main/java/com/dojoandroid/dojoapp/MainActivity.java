@@ -1,6 +1,7 @@
 package com.dojoandroid.dojoapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,10 +36,13 @@ public class MainActivity extends Activity {
                 String username = mUserInput.getText().toString();
                 String password = mPassInput.getText().toString();
 
-                if(username != null && username.equals("android")
-                        && password != null && password.equals("admin123")) {
+                if(username != null && username.equals("admin")
+                        && password != null && password.equals("admin")) {
 
                     Toast.makeText(MainActivity.this, "Login OK!", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    startActivity(intent);
 
                 } else {
                     Toast.makeText(MainActivity.this, "Usuário ou Senha incorreto!", Toast.LENGTH_LONG).show();
