@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
                     Toast.makeText(MainActivity.this, "Login OK!", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    Intent intent = new Intent(MainActivity.this, CharactersActivity.class);
                     startActivity(intent);
 
                 } else {

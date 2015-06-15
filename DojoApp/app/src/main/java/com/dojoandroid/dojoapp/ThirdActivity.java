@@ -15,6 +15,6 @@ public class ThirdActivity extends Activity {
         TextView label = (TextView) findViewById(R.id.third_activity_label);
 
         Bundle bundle = getIntent().getExtras();
-        label.setText(bundle.getString(SecondActivity.BUNDLE_TAG));
+        //label.setText(bundle.getString(CharactersActivity.BUNDLE_TAG));
     }
 }
