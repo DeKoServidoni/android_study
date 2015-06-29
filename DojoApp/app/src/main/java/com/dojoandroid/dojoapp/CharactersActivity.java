@@ -2,12 +2,14 @@ package com.dojoandroid.dojoapp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.dojoandroid.dojoapp.adapters.CharacterAdapter;
+import com.dojoandroid.dojoapp.database.DBManager;
 import com.dojoandroid.dojoapp.entity.Character;
 import com.dojoandroid.dojoapp.task.CharactersTask;
 
@@ -16,31 +18,16 @@ import java.util.List;
 
 public class CharactersActivity extends Activity implements CharactersTask.CharactersTaskCallback {
 
-//    private int[] mImages = {R.drawable.c3po, R.drawable.chewbacca, R.drawable.hansolo, R.drawable.leia,
-//                                R.drawable.luke, R.drawable.obiwan, R.drawable.r2d2, R.drawable.vader,
-//                                R.drawable.jabba, R.drawable.maul, R.drawable.boba};
-//
-//    private String[] mNames = {"C3PO", "CHEWBACCA", "HANSOLO", "LEIA", "LUKE", "OBI WAN KENOBI",
-//                                "R2D2", "DARTH VADER", "JABBA THE HUT", "DARTH MAUL", "BOBA FETT"};
-
     private ListView mList = null;
     private List<Character> mContent = new ArrayList<>();
+
+    private DBManager mManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_characters);
-
-//        final ArrayList<Character> content = new ArrayList<>();
-//
-//        for(int i=0 ; i<mImages.length ; i++) {
-//            Character character = new Character();
-//            character.setResource(mImages[i]);
-//            character.setName(mNames[i]);
-//
-//            content.add(character);
-//        }
 
         mList = (ListView) findViewById(R.id.list_characters);
 
@@ -52,8 +39,18 @@ public class CharactersActivity extends Activity implements CharactersTask.Chara
             }
         });
 
-        CharactersTask task = new CharactersTask(this, this);
-        task.execute();
+        mManager = new DBManager(this);
+
+        mContent.addAll(mManager.get());
+
+        if(mContent.size() == 0) {
+            Log.e(CharactersActivity.class.getSimpleName(), "Buscando do servidor!");
+            CharactersTask task = new CharactersTask(this, this);
+            task.execute();
+        } else {
+            Log.e(CharactersActivity.class.getSimpleName(), "Resultados do banco local!");
+            initializeList();
+        }
     }
 
     @Override
@@ -65,7 +62,18 @@ public class CharactersActivity extends Activity implements CharactersTask.Chara
     public void onFinishWithSuccess(List<Character> content) {
         mContent.clear();
         mContent.addAll(content);
+        initializeList();
 
+        // insert the data from server to the database
+        for(Character character : mContent) {
+            mManager.insert(character.getName());
+        }
+    }
+
+    /**
+     * Initialize the list with and adapter
+     */
+    private void initializeList() {
         CharacterAdapter adapter = new CharacterAdapter(this, mContent);
         mList.setAdapter(adapter);
     }
