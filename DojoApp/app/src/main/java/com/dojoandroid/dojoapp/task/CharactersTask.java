@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharactersTask extends AsyncTask<Void, Void, Boolean> {
+public class CharactersTask extends AsyncTask<Integer, Void, Boolean> {
 
     private static final String TAG = CharactersTask.class.getSimpleName();
 
@@ -51,14 +51,14 @@ public class CharactersTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mDialog = ProgressDialog.show(mContext,"Carregando","Baixando JSON...",true, false);
+        //mDialog = ProgressDialog.show(mContext,"Carregando","Baixando JSON...",true, false);
     }
 
     @Override
-    protected Boolean doInBackground(Void... voids) {
+    protected Boolean doInBackground(Integer... args) {
         boolean result = true;
 
-        HttpGet get = new HttpGet(URI.create(URL));
+        HttpGet get = new HttpGet(URI.create(URL+"?page="+args[0]));
         HttpClient client = new DefaultHttpClient();
 
         try {

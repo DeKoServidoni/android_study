@@ -1,6 +1,10 @@
 package com.dojoandroid.dojoapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,17 +15,19 @@ import android.widget.Toast;
 import com.dojoandroid.dojoapp.adapters.CharacterAdapter;
 import com.dojoandroid.dojoapp.database.DBManager;
 import com.dojoandroid.dojoapp.entity.Character;
-import com.dojoandroid.dojoapp.task.CharactersTask;
+import com.dojoandroid.dojoapp.service.CharactersService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharactersActivity extends Activity implements CharactersTask.CharactersTaskCallback {
+public class CharactersActivity extends Activity {
 
     private ListView mList = null;
     private List<Character> mContent = new ArrayList<>();
 
     private DBManager mManager = null;
+
+    private BroadcastReceiver mReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,30 +50,35 @@ public class CharactersActivity extends Activity implements CharactersTask.Chara
         mContent.addAll(mManager.get());
 
         if(mContent.size() == 0) {
-            Log.e(CharactersActivity.class.getSimpleName(), "Buscando do servidor!");
-            CharactersTask task = new CharactersTask(this, this);
-            task.execute();
+            Intent service = new Intent(this, CharactersService.class);
+            service.putExtra(CharactersService.GET_DATA, true);
+            startService(service);
         } else {
             Log.e(CharactersActivity.class.getSimpleName(), "Resultados do banco local!");
             initializeList();
         }
+
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent != null && intent.getAction().equals(CharactersService.BROADCAST_UPDATE)) {
+                    Toast.makeText(CharactersActivity.this, "Lista atualizada!", Toast.LENGTH_SHORT).show();
+                    mContent.clear();
+                    mContent.addAll(mManager.get());
+                    initializeList();
+                }
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(CharactersService.BROADCAST_UPDATE);
+        registerReceiver(mReceiver, filter);
     }
 
     @Override
-    public void onFinishWithError() {
-        Toast.makeText(CharactersActivity.this, "Erro ao carregar lista!", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onFinishWithSuccess(List<Character> content) {
-        mContent.clear();
-        mContent.addAll(content);
-        initializeList();
-
-        // insert the data from server to the database
-        for(Character character : mContent) {
-            mManager.insert(character.getName());
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 
     /**

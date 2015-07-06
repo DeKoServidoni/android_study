@@ -1,8 +1,5 @@
 package com.dojoandroid.dojoapp.entity;
 
-/**
- * Created by DeKoServidoni on 6/14/15.
- */
 public class Character {
 
     private int mResource = 0;

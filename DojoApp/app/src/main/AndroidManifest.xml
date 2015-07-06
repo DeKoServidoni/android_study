@@ -23,6 +23,15 @@
         <activity android:name=".ThirdActivity"
                   android:label="@string/app_name"/>
 
+        <service android:name=".service.CharactersService"
+                 android:exported="false" />
+
+        <receiver android:name=".receiver.CharactersReceiver">
+            <intent-filter>
+                <action android:name="com.dojoandroid.dojoapp.LOADED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
