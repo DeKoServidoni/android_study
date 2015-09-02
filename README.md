@@ -1,10 +1,11 @@
 # android_study
 
-Aplicativo de Android simples que contempla os conceitos básicos para quem está começando nesse mundo :D
+Aplicativo  simples que contempla todos os conceitos básicos 
+da linguagem android.
 
 Desenvolvido utilizando:
-IDE: AndroidStudio
-SDK: 5.0+
+<br><b>IDE:</b> AndroidStudio
+<br><b>SDK:</b> 5.0+
 
 ##Activities e Ciclo de Vida
  - Ciclo de vida da activity
