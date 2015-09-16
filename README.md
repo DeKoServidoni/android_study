@@ -1,41 +1,40 @@
 # android_study
 
-Aplicativo  simples que contempla todos os conceitos básicos 
-da linguagem android.
+Simple Application that contemplate all the basic concepts of android development.
 
-Desenvolvido utilizando:
+Development environment:
 <br><b>IDE:</b> AndroidStudio
 <br><b>SDK:</b> 5.0+
 
-##Activities e Ciclo de Vida
- - Ciclo de vida da activity
- - Transição entre as telas (Activities)
- - Intents (chamando outras activities + abrindo outras apps)
+##Activities and Lifecycle
+ - Lifecycle of activity
+ - Screen transitions (Activities)
+ - Intents (calling another activities and/or another apps)
 
-##Componentes básicos de UI
- - Criando um layout para activity
- - Mapeamento dos componentes do XML
- - Manipulação de componentes pela activity
- - Eventos dos componentes (Listeners)
+##UI basic concepts
+ - Making your first layout
+ - Mapping components from XML
+ - Handle components from activity
+ - Components listeners
 
 ##ListView + Adapters
  - ArrayAdapter
  - BaseAdapter
  - Custom adapter
- - Reciclagem de views 
+ - Recycle views 
 
-##Persistência de Dados
+##Database
  - SharedPreference + SQLite
- - Trabalhando com shared preferences
- - Trabalhando com banco de dados
+ - Working with shared preferences
+ - Working with databases
  - Content providers
 
-##AsyncTasks e Conectividade
- - Processos e Threads
- - Executando uma requisição GET
- - Executando uma requisição POST
- - Manipulando JSON de resposta
+##AsyncTasks e Connectivity
+ - Process and Threads
+ - Executing GET requisitions
+ - Executing POST requisitions
+ - Handle response JSON
 
-##Serviços
- - Ciclo de vida de um serviço
+##Services
+ - Service lifecycle
  - Broadcast receivers
